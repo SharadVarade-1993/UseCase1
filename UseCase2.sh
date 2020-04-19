@@ -56,3 +56,19 @@ echo "sorting Descending"
 echo ${arithmetic[@]}
 echo ${!arithmetic[@]}
 
+
+for (( i=0; i<$number; i++ ))
+do
+	for (( j=0; j<$number; j++ ))
+	do
+		if [ ${arithmetic[i]} -lt ${arithmetic[j]} ]
+		then
+			temp=${arithmetic[i]}
+			arithmetic[$i]=${arithmetic[j]}
+			arithmetic[$j]=$temp
+		fi
+	done
+done
+echo "sorting Ascending"
+echo ${arithmetic[@]}
+echo ${!arithmetic[@]}
