@@ -1,14 +1,13 @@
 #!/bin/bash -x
 
+declare -A result
+declare -a arithmetic
+
 read -p "Enter the A value: " a
 read -p "Enter the B value: " b
 read -p "Enter the C value: " c
-#!/bin/bash -x
-
-
 
 A=$(( $a +$b * $c ))
-
 
 B=$(( $a * $b + $c ))
 
@@ -17,19 +16,43 @@ C=$(( $c + $b / $c ))
 D=$(( $a % $b + $c ))
 
 
-result[UseCase1]=$A;
+result[useCase2]=$A;
 
-result[UseCase2]=$B;
+result[useCase3]=$B;
 
-result[UseCase3]=$C;
+result[useCase4]=$C;
 
-result[Usecase4]=$D;
+result[useCase5]=$D;
 
 
-echo "Use case2" ${result[A]}
+echo "Dictionary Key"  ${!result[@]}
+echo "Dictionary Value" ${result[@]}
 
-echo "Use Case 3" ${result[B]}
+#Arrays values
+counter=0
+arithmetic[$counter]=${result[useCase2]}
+arithmetic[$((++counter))]=${result[useCase3]}
+arithmetic[$((++counter))]=${result[useCase4]}
+arithmetic[$((++counter))]=${result[useCase5]}
 
-echo "Use case 4" ${result[C]}
+echo "Array Index "${!arithmetic[@]}
+echo "Array Value "${arithmetic[@]}
 
-echo  "Use case 5"${result[D]}
+
+number=${#arithmetic[@]}
+for (( i=0; i<$number; i++ ))
+do
+	for (( j=0; j<$number; j++ ))
+	do
+		if [ ${arithmetic[i]} -gt ${arithmetic[j]} ]
+		then
+			temp=${arithmetic[i]}
+			arithmetic[$i]=${arithmetic[j]}
+			arithmetic[$j]=$temp
+		fi
+	done
+done
+echo "sorting Descending"
+echo ${arithmetic[@]}
+echo ${!arithmetic[@]}
+
